@@ -1,5 +1,11 @@
+let connection;
 
-const setupInput = function () {
+// const setupInput = (conn) => {
+//   connection = conn;
+// };
+
+const setupInput = function(conn) {
+  connection = conn;
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.setEncoding("utf8");
@@ -15,19 +21,22 @@ const handleUserInput = (key) => {
     process.exit();
     break;
   case "w":
-    console.log("up");
+    connection.write("Move: " + "up");
     break;
   case "a":
-    console.log("left");
+    connection.write("Move: " + "left");
     break;
   case "s":
-    console.log("down");
+    connection.write("Move: " + "down");
     break;
   case "d":
-    console.log("right");
+    connection.write("Move: " + "right");
+    break;
+  case "e":
+    connection.write("Say: Humm! A square apple!");  
     break;
   default:
-    console.log("invalid input");
+    connection.write("Say: Ops! Wrong key!");
   }
   return key;
 };
