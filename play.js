@@ -1,7 +1,41 @@
 const {connect} = require("./client");
 
+const setupInput = function () {
+  const stdin = process.stdin;
+  stdin.setRawMode(true);
+  stdin.setEncoding("utf8");
+  stdin.resume();
+  return stdin;
+};
 
-console.log(JSON.stringify(connect));
+const stdin = setupInput();
+
+const handleUserInput = (key) => {
+  switch (key) {
+  case "\u0003":
+    console.log("Thanks for playing snakes!");
+    process.exit();
+    break;
+  case "w":
+    console.log("up");
+    break;
+  case "a":
+    console.log("left");
+    break;
+  case "s":
+    console.log("down");
+    break;
+  case "d":
+    console.log("right");
+    break;
+  default:
+    console.log("invalid input");
+  }
+  return key;
+};
+
+stdin.on("data", handleUserInput);
+
 console.log("Connecting ...");
 const conn = connect();
 
